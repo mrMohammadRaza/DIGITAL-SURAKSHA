@@ -1,0 +1,31 @@
+{
+  "name": "digital-suraksha",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Digital Suraksha — Online Fraud Awareness Platform for Rural Communities (College CEP Project)",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=packages/backend & npm run dev --workspace=packages/frontend",
+    "dev:setup": "npm run build --workspace=packages/shared && npm run db:setup --workspace=packages/backend",
+    "dev:backend": "npm run dev --workspace=packages/backend",
+    "dev:frontend": "npm run dev --workspace=packages/frontend",
+    "build": "npm run build --workspace=packages/shared && npm run build --workspace=packages/backend && npm run build --workspace=packages/frontend",
+    "test": "npm run test --workspace=packages/backend && npm run test --workspace=packages/frontend",
+    "test:backend": "npm run test --workspace=packages/backend",
+    "test:frontend": "npm run test --workspace=packages/frontend",
+    "lint": "npm run lint --workspaces --if-present",
+    "db:migrate": "npm run db:migrate --workspace=packages/backend",
+    "db:seed": "npm run db:seed --workspace=packages/backend"
+  },
+  "keywords": [
+    "cyber-security",
+    "rural-india",
+    "fraud-awareness",
+    "digital-literacy",
+    "college-cep"
+  ],
+  "author": "Digital Suraksha Team",
+  "license": "MIT"
+}

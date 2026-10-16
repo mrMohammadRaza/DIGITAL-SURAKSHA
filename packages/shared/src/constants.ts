@@ -1,0 +1,67 @@
+export const APP_CONFIG = {
+  APP_NAME_EN: 'Digital Suraksha',
+  APP_NAME_HI: 'डिजिटल सुरक्षा',
+  APP_NAME_MR: 'डिजिटल सुरक्षा',
+  TAGLINE_EN: 'Online Fraud Awareness & Cyber Safety for Rural Communities',
+  TAGLINE_HI: 'ग्रामीण समुदायों के लिए ऑनलाइन धोखाधड़ी जागरूकता एवं साइबर सुरक्षा',
+  TAGLINE_MR: 'ग्रामीण भागातील नागरिकांसाठी ऑनलाइन फसवणूक जनजागृती व सायबर सुरक्षा',
+  HELPLINE_NATIONAL: '1930',
+  PORTAL_NATIONAL: 'https://cybercrime.gov.in/',
+  SACHET_PORTAL: 'https://sachet.rbi.org.in/',
+  CHAKSHU_PORTAL: 'https://sancharsaathi.gov.in/sfc/',
+  API_VERSION: 'v1',
+};
+
+export const BANK_HELPLINES = [
+  { bankName: 'State Bank of India (SBI)', tollFree: '1800 1234 / 1800 2100', blockSms: 'BLOCK <CardLast4> to 567676' },
+  { bankName: 'Punjab National Bank (PNB)', tollFree: '1800 180 2222 / 1800 103 2222', blockSms: 'BLOCK <CardNo> to 5607040' },
+  { bankName: 'Bank of Baroda (BOB)', tollFree: '1800 5700 / 1800 5000', blockSms: 'BLOCK <CardLast4> to 8422009988' },
+  { bankName: 'HDFC Bank', tollFree: '1800 1600 / 1800 2600', blockSms: 'NetBanking / Mobile App Hotlisting' },
+  { bankName: 'ICICI Bank', tollFree: '1800 1080', blockSms: 'IBLOCK <Last4> to 5676766' },
+  { bankName: 'Axis Bank', tollFree: '1860 419 5555 / 1860 500 5555', blockSms: 'BLOCKCARD to 56161600' },
+  { bankName: 'India Post Payments Bank (IPPB)', tollFree: '155299 / 1800 8899 860', blockSms: 'Immediate In-App Freeze' },
+  { bankName: 'Canara Bank', tollFree: '1800 425 0018', blockSms: 'CAN <CardLast4> to 5607060' },
+];
+
+export const GOLDEN_RULES = [
+  {
+    id: 'rule-upi-pin',
+    icon: 'KeyRound',
+    titleEn: 'PIN is ONLY for Sending Money',
+    titleHi: 'पिन (PIN) केवल पैसे भेजने के लिए होता है',
+    titleMr: 'पिन (PIN) फक्त पैसे पाठवण्यासाठी असतो',
+    descEn: 'You NEVER need to enter your UPI PIN to receive money or cashback. If anyone asks for a PIN to send money to you, it is 100% FRAUD.',
+    descHi: 'पैसे प्राप्त करने या कैशबैक लेने के लिए कभी भी यूपीआई पिन डालने की जरूरत नहीं होती। यदि कोई पैसे भेजने के लिए आपसे पिन मांगे, तो वह धोखाधड़ी है।',
+    descMr: 'पैसे स्वीकारण्यासाठी किंवा कॅशबॅकसाठी कधीही UPI पिन टाकण्याची आवश्यकता नसते. कोणी पैसे देण्यासाठी पिन मागितल्यास ती निव्वळ फसवणूक आहे.',
+  },
+  {
+    id: 'rule-no-otp',
+    icon: 'ShieldAlert',
+    titleEn: 'Never Share Any OTP',
+    titleHi: 'कभी भी किसी से OTP शेयर न करें',
+    titleMr: 'कधीही कोणालाही OTP सांगू नका',
+    descEn: 'Bank officials, electricity boards, or courier agents will NEVER ask for your OTP over the phone. Never forward SMS messages.',
+    descHi: 'बैंक अधिकारी, बिजली विभाग या कूरियर एजेंट फोन पर कभी भी OTP नहीं मांगते। किसी भी अनजान व्यक्ति के साथ OTP कभी साझा न करें।',
+    descMr: 'बँक कर्मचारी, वीज वितरण कंपनी किंवा कुरिअर एजंट फोनवर कधीही OTP मागत नाहीत. आपला OTP कोणालाही देऊ नका.',
+  },
+  {
+    id: 'rule-no-remote-app',
+    icon: 'SmartphoneOff',
+    titleEn: 'No Screen-Sharing Apps',
+    titleHi: 'अनजान ऐप (AnyDesk/QuickSupport) इंस्टॉल न करें',
+    titleMr: 'अनोळखी स्क्रीन-शेअरिंग अॅप इन्स्टॉल करू नका',
+    descEn: 'Never install AnyDesk, TeamViewer, RustDesk or APK files sent via WhatsApp. Scammers use them to see your bank screen and steal money.',
+    descHi: 'व्हाट्सएप पर भेजी गई APK फाइल या AnyDesk/TeamViewer जैसे ऐप कभी इंस्टॉल न करें। इससे ठग आपकी स्क्रीन देखकर पैसे चुरा लेते हैं।',
+    descMr: 'WhatsApp वर आलेल्या APK फाईल्स किंवा AnyDesk/TeamViewer सारखे अॅप्स डाउनलोड करू नका. याने भामटे तुमचा मोबाईल स्क्रीन बघून खात्यातील रक्कम चोरू शकतात.',
+  },
+  {
+    id: 'rule-golden-hour',
+    icon: 'Clock',
+    titleEn: 'Dial 1930 in Golden Hour',
+    titleHi: 'धोखाधड़ी होते ही तुरंत 1930 पर कॉल करें',
+    titleMr: 'फसवणूक झाल्यास त्वरित १९३० क्रमांकावर कॉल करा',
+    descEn: 'Report financial fraud within 1-2 hours on 1930 to freeze the stolen funds before the fraudster withdraws them from an ATM.',
+    descHi: 'पैसे कटने के 1-2 घंटे के भीतर (गोल्डन ऑवर) 1930 पर शिकायत दर्ज करें ताकि जालसाज के खाते से रकम रोकी (freeze) जा सके।',
+    descMr: 'खात्यातून रक्कम जाताच १-२ तासांच्या आत १९३० वर तक्रार नोंदवा, जेणेकरून चोरट्यांचे खाते गोठवून (freeze) पैसे वाचवता येतील.',
+  },
+];

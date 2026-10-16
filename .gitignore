@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+**/node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+**/dist/
+build/
+.next/
+out/
+
+# Environment variables
+.env
+**/.env
+.env.local
+.env.production
+!.env.example
+!**/.env.example
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Prisma / SQLite databases
+*.db
+**/*.db
+*.db-journal
+**/*.db-journal
+*.sqlite
+*.sqlite-journal
+
+# IDE / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Testing
+coverage/
+**/coverage/
+playwright-report/
+**/playwright-report/
+test-results/
+**/test-results/

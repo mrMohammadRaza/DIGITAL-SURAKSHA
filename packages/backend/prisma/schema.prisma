@@ -1,0 +1,187 @@
+// Digital Suraksha - Prisma Database Schema
+// Fully compatible with PostgreSQL (Production / Docker / CI) and SQLite (Local zero-config dev)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id            String    @id @default(uuid())
+  slug          String    @unique
+  nameEn        String
+  nameHi        String
+  nameMr        String
+  descriptionEn String
+  descriptionHi String
+  descriptionMr String
+  icon          String
+  order         Int       @default(0)
+  topics        Topic[]
+  quizzes       Quiz[]
+  createdAt     DateTime  @default(now())
+}
+
+model Topic {
+  id                 String    @id @default(uuid())
+  slug               String    @unique
+  categoryId         String
+  category           Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  severity           String    @default("high") // medium, high, critical
+  tags               String    @default("[]") // JSON string of tags
+  order              Int       @default(0)
+  
+  // English Content
+  titleEn            String
+  definitionEn       String
+  howItWorksEn       String
+  fictionalExampleEn String
+  warningSignsEn     String    // JSON string array
+  safeActionsEn      String    // JSON string array
+  victimGuidanceEn   String    // JSON string array
+  
+  // Hindi Content (हिन्दी)
+  titleHi            String
+  definitionHi       String
+  howItWorksHi       String
+  fictionalExampleHi String
+  warningSignsHi     String    // JSON string array
+  safeActionsHi      String    // JSON string array
+  victimGuidanceHi   String    // JSON string array
+  
+  // Marathi Content (मराठी)
+  titleMr            String
+  definitionMr       String
+  howItWorksMr       String
+  fictionalExampleMr String
+  warningSignsMr     String    // JSON string array
+  safeActionsMr      String    // JSON string array
+  victimGuidanceMr   String    // JSON string array
+  
+  relatedSlugs       String    @default("[]") // JSON array of related topic slugs
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+}
+
+model Quiz {
+  id            String         @id @default(uuid())
+  slug          String         @unique
+  titleEn       String
+  titleHi       String
+  titleMr       String
+  descriptionEn String
+  descriptionHi String
+  descriptionMr String
+  difficulty    String         // beginner, intermediate, advanced
+  categoryId    String?
+  category      Category?      @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  questions     Question[]
+  attempts      QuizAttempt[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model Question {
+  id            String         @id @default(uuid())
+  quizId        String
+  quiz          Quiz           @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  order         Int            @default(0)
+  questionEn    String
+  questionHi    String
+  questionMr    String
+  explanationEn String
+  explanationHi String
+  explanationMr String
+  difficulty    String         @default("beginner")
+  points        Int            @default(1)
+  options       Option[]
+}
+
+model Option {
+  id         String    @id @default(uuid())
+  questionId String
+  question   Question  @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  textEn     String
+  textHi     String
+  textMr     String
+  isCorrect  Boolean   @default(false)
+}
+
+model QuizAttempt {
+  id              String         @id @default(uuid())
+  quizId          String
+  quiz            Quiz           @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  userIdentifier  String?
+  score           Int
+  totalPoints     Int
+  percentage      Float
+  passed          Boolean
+  responses       QuizResponse[]
+  createdAt       DateTime       @default(now())
+}
+
+model QuizResponse {
+  id               String       @id @default(uuid())
+  attemptId        String
+  attempt          QuizAttempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  questionId       String
+  selectedOptionId String
+  isCorrect        Boolean
+}
+
+model Scenario {
+  id                String   @id @default(uuid())
+  titleEn           String
+  titleHi           String
+  titleMr           String
+  contextEn         String
+  contextHi         String
+  contextMr         String
+  scenarioTextEn    String
+  scenarioTextHi    String
+  scenarioTextMr    String
+  isSafe            Boolean  // true = safe practice, false = unsafe / fraud trap
+  explanationEn     String
+  explanationHi     String
+  explanationMr     String
+  recommendationEn  String
+  recommendationHi  String
+  recommendationMr  String
+  relatedTopicSlug  String?
+  order             Int      @default(0)
+}
+
+model Feedback {
+  id            String   @id @default(uuid())
+  name          String?
+  villageOrCity String?
+  rating        Int
+  category      String
+  comment       String
+  language      String   @default("hi")
+  isApproved    Boolean  @default(true)
+  createdAt     DateTime @default(now())
+}
+
+model AdminUser {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("admin") // admin, moderator
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model AuditLog {
+  id          String   @id @default(uuid())
+  action      String
+  performedBy String
+  details     String?
+  ipAddress   String?
+  createdAt   DateTime @default(now())
+}

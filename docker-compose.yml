@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database Service
+  postgres:
+    image: postgres:16-alpine
+    container_name: suraksha_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword2026
+      POSTGRES_DB: digital_suraksha
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d digital_suraksha"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Backend REST API Service
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: backend
+    container_name: suraksha_backend
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 5000
+      API_PREFIX: /api/v1
+      DATABASE_URL: "postgresql://postgres:postgrespassword2026@postgres:5432/digital_suraksha?schema=public"
+      CORS_ORIGIN: "http://localhost:5173"
+      JWT_SECRET: "super_secret_jwt_key_for_digital_suraksha_min_32_chars_long_2026!"
+      ADMIN_EMAIL: "admin@suraksha.gov.in"
+      ADMIN_PASSWORD: "SurakshaAdmin2026!"
+    ports:
+      - "5000:5000"
+
+  # Frontend Web Application Service
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: frontend
+    container_name: suraksha_frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+
+volumes:
+  postgres_data:
